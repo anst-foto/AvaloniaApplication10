@@ -1,0 +1,44 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaApplication10.ViewModels"
+        xmlns:m="using:AvaloniaApplication10.Models"
+        
+        x:Class="AvaloniaApplication10.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AvaloniaApplication10">
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    <Window.Styles>
+        <StyleInclude Source="Styles.axaml"/>
+    </Window.Styles>
+
+    <DockPanel LastChildFill="True">
+        <Grid ColumnDefinitions="Auto,*"
+              DockPanel.Dock="Top">
+            <Label Content="_Поиск"
+                   Target="{Binding ElementName=InputSearch}"
+                   Grid.Column="0"/>
+            <TextBox x:Name="InputSearch"
+                     Text="{Binding InputSearchText}"
+                     Grid.Column="1"/>
+        </Grid>
+        
+        <ListBox ItemsSource="{Binding StrItems}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type m:StrClass}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="25" Height="25"
+                                   Classes.active="{Binding IsActive}"
+                                   Classes.deactivate="{Binding IsDeactivate}"/>
+                        <TextBlock Text="{Binding Str}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Window>
